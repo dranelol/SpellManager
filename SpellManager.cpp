@@ -24,39 +24,38 @@ int main()
    // init players, add them to player map
    int playerCounter = 0;
    
-   
-   PlayerMap.insert( pair<int, Player> (playerCounter++, Player(SpellCastHeap)));
-   cout << playerCounter << endl;
-   PlayerMap.insert( pair<int, Player> (playerCounter++, Player(SpellCastHeap)));
-   PlayerMap.insert( pair<int, Player> (playerCounter++, Player(SpellCastHeap)));
-   PlayerMap.insert( pair<int, Player> (playerCounter++, Player(SpellCastHeap)));
-   PlayerMap.insert( pair<int, Player> (playerCounter++, Player(SpellCastHeap)));
+   for(int playerCounter = 0; playerCounter < 5; playerCounter++)
+   {
+		PlayerMap.insert( pair<int, Player> (playerCounter, Player(SpellCastHeap)));
+   }
    
    // init spells, add them to players' spellbooks, add spell to spell map
    
-   int spellCounter = 0;
    
-   Spell Fireball(spellCounter, "Fireball", 5.0, 5.0);
+	playerCounter = 0;
+	
+	// initialize fireball
+	
+	int spellCounter = 0;
+	
+	// init fireball
+	for(; spellCounter < 5; spellCounter++)
+	{
+		SpellMap.insert( pair<int, Spell> (spellCounter, Spell(spellCounter, "Fireball", 5.0, 5.0)));
+		SpellPlayerMap.insert( pair<int, int> (spellCounter, playerCounter));
+		playerCounter++;
+	}
+	
+	playerCounter = 0;
+	
+	// init icebolt
+	for(; spellCounter < 10; spellCounter++)
+	{
+		SpellMap.insert( pair<int, Spell> (spellCounter, Spell(spellCounter, "Icebolt", 5.0, 5.0)));
+		SpellPlayerMap.insert( pair<int, int> (spellCounter, playerCounter));
+		playerCounter++;
+	}
    
-   SpellMap.insert( pair<int, Spell> (spellCounter, Fireball));
-   
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 0));
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 1));
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 2));
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 3));
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 4));
-   
-   spellCounter++;
-   
-   Spell Icebolt(spellCounter, "Icebolt", 5.0, 5.0);
-   
-   SpellMap.insert( pair<int, Spell> (spellCounter, Icebolt));
-   
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 0));
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 1));
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 2));
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 3));
-   SpellPlayerMap.insert( pair<int, int> (spellCounter, 4));
    
    for(map<int, Player>::iterator itr = PlayerMap.begin(); itr != PlayerMap.end(); ++itr)
    {
@@ -64,6 +63,7 @@ int main()
 		itr->second.AddSpell(Icebolt);
    }
    
+   // game loop
    while(true)
    {
 		// iterate through player mapping, calling update on all players

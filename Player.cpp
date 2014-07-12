@@ -4,7 +4,9 @@ using namespace std;
 
 Player::Player()
 {
-
+	hp = 10;
+	
+	castCooldown = 0.0;
 }
 
 Player::Player(priority_queue<SpellCast, vector<SpellCast>, MinHeapCompare> *SpellCastHeap)
@@ -26,22 +28,25 @@ void Player::Update()
 	
 	bool condition = true;
 	
-	/* logic to choose spell */
 	
-	int spellID = 0;
 	
 	if(condition == true)
 	{
+		/* logic to choose spell */
+	
+		int spellID = 0;
 	
 		if(castCooldown <= TimeLib.TimeSinceStart())
 		{
 		
 			// add this spell to the spellcast heap
 			
+			// create a spellcast object
 			SpellCast newCast;
 			newCast.SpellID = spellID;
 			newCast.CastTime = spellList[spellID].castTime + TimeLib.TimeSinceStart();
 			
+			// push it onto the spellcast heap
 			spellCastHeap->push(newCast);
 			
 			// update to new cast cooldown
